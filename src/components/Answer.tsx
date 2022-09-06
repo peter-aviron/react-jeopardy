@@ -9,7 +9,7 @@ interface Props {
 
 function Answer(props:Props){
     const [userInput,setUserInput] = React.useState("")
-    const [feedback, setFeedback] = React.useState<String>("")
+    const [feedback, setFeedback] = React.useState<string>("")
 
     function changeHandler (e:any) {
         setUserInput(e.target.value)
