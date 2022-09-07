@@ -5,6 +5,8 @@ interface Props {
     currentClue?: Clue;
     setScore: any;
     setCurrentClue: any;
+    currentPlayer: number;
+    setCurrentPlayer: any;
 }
 
 function Answer(props:Props){
@@ -17,13 +19,18 @@ function Answer(props:Props){
 
     function submitHandler (e:any) {
         if(userInput.toLowerCase() === props.currentClue?.answer.toLowerCase()){
-            props.setScore((prevScore:number)=>prevScore + (props.currentClue?.value ?? 0))
+            props.setScore((prevScore: any)=>{
+                return {...prevScore, [props.currentPlayer]: prevScore[props.currentPlayer] + (props.currentClue?.value ?? 0)}
+            })
             setFeedback("Correct")
         } else {
-            props.setScore((prevScore:number)=>prevScore - (props.currentClue?.value ?? 0))
+            props.setScore((prevScore: any)=>{
+                return {...prevScore, [props.currentPlayer]: prevScore[props.currentPlayer] - (props.currentClue?.value ?? 0)}
+            })
             setFeedback("Incorrect")
         }
         props.setCurrentClue(undefined)
+        props.setCurrentPlayer(props.currentPlayer === 1 ? 2 : 1)
         setUserInput('')
     }
 

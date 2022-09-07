@@ -9,11 +9,19 @@ export interface Clue { value: number; question: string; answer: string; }
 function App() {
     const [columnClueArrays, setColumnClueArrays] = React.useState<any[]>([]);
     const [currentClue, setCurrentClue] = React.useState<Clue>();
-    const [score, setScore] = React.useState<number>(0);
+    const [score, setScore] = React.useState<any>({ 1: 0, 2: 0 });
+    const [currentPlayer, setCurrentPlayer] = React.useState<number>(1)
 
     async function getCluesByCategory(categoryId: number) {
         const response = await axios.get("https://jservice.io/api/clues?category=" + categoryId);
-        const clueArray = response.data.slice(0,5)
+        const clueArray = response.data.slice(0, 5)
+        // remove html characters 
+        for (let i = 0; i < clueArray.length; i++) {
+            let currentIterationClue = clueArray[i]
+            let currentAnswer = currentIterationClue.answer
+            clueArray[i].answer = currentAnswer.replace(/<[^>]*>?/gm, '');
+        }
+
         setColumnClueArrays((prev) => {
             return [...prev, clueArray]
         })
@@ -31,14 +39,21 @@ function App() {
     return (
         <div className="App">
             <div className="scoreboard">
-                <div>Current Player </div>
-                <div>Current Score: {score}</div>
+                <div>Current Player: {currentPlayer} </div>
+                <div>Player 1 Score: {score[1]}</div>
+                <div>Player 2 Score: {score[2]}</div>
             </div>
-            <Answer currentClue={currentClue} setScore={setScore} setCurrentClue={setCurrentClue} />
+            <Answer
+                currentClue={currentClue}
+                setScore={setScore}
+                setCurrentClue={setCurrentClue}
+                currentPlayer={currentPlayer}
+                setCurrentPlayer={setCurrentPlayer}
+            />
             <div className="Board">
                 <Column clueArray={columnClueArrays[0]} setCurrentClue={setCurrentClue} currentClue={currentClue} />
                 <Column clueArray={columnClueArrays[1]} setCurrentClue={setCurrentClue} currentClue={currentClue} />
-                <Column clueArray={columnClueArrays[2]} setCurrentClue={setCurrentClue} currentClue={currentClue}/>
+                <Column clueArray={columnClueArrays[2]} setCurrentClue={setCurrentClue} currentClue={currentClue} />
             </div>
         </div>
     );
