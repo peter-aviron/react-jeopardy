@@ -54,4 +54,11 @@
 
 .Board {
     display: flex;
+    justify-content: center
+}
+
+.win {
+    position:absolute;
+    left: 100px;
+    background-color: aquamarine;
 }

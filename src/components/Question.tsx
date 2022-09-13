@@ -13,12 +13,8 @@ function Question(props: Props) {
 
     React.useEffect(()=>{
         const isSelectedQuestion = textValue === props.clue.question
-        console.log("hello from useEffect")
         if(isSelectedQuestion && props.currentClue === undefined){
             setTextValue("")
-            console.log('textvalue', textValue)
-            console.log('props.clue.question', props.clue.question)
-            console.log('props.currentClue', props.currentClue)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.currentClue])

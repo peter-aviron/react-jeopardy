@@ -7,11 +7,21 @@ interface Props {
     setCurrentClue: any;
     currentClue?: Clue;
 }
+//https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
+function toTitleCase(str: string) {
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
+      }
+    );
+  }
 
 function Column(props: Props) {
+    const headerCatTitle = props.clueArray ? props.clueArray[0]['category']['title'] : ""
     return (
         <div>
-            <div className="column-header">Test Header</div>
+            <div className="column-header">{toTitleCase(headerCatTitle)}</div>
             {props.clueArray?.map((clue, index) => {
                 return <Question clue={clue} key={index} setCurrentClue={props.setCurrentClue} currentClue={props.currentClue} />
             })}

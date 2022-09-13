@@ -10,7 +10,8 @@ function App() {
     const [columnClueArrays, setColumnClueArrays] = React.useState<any[]>([]);
     const [currentClue, setCurrentClue] = React.useState<Clue>();
     const [score, setScore] = React.useState<any>({ 1: 0, 2: 0 });
-    const [currentPlayer, setCurrentPlayer] = React.useState<number>(1)
+    const [currentPlayer, setCurrentPlayer] = React.useState<number>(1);
+    const [winDiv, setWinDiv] = React.useState<string>();
 
     async function getCluesByCategory(categoryId: number) {
         const response = await axios.get("https://jservice.io/api/clues?category=" + categoryId);
@@ -36,6 +37,12 @@ function App() {
         })
     }, []);
 
+    React.useEffect(() => {
+        if (score[1] >= 400 || score[2] >= 400) {
+            setWinDiv('Player ' + (currentPlayer === 1 ? 2 : 1) + ' wins!')
+        }
+    }, [score])
+
     return (
         <div className="App">
             <div className="scoreboard">
@@ -43,12 +50,14 @@ function App() {
                 <div>Player 1 Score: {score[1]}</div>
                 <div>Player 2 Score: {score[2]}</div>
             </div>
+            <div className='win'>{winDiv}</div>
             <Answer
                 currentClue={currentClue}
                 setScore={setScore}
                 setCurrentClue={setCurrentClue}
                 currentPlayer={currentPlayer}
                 setCurrentPlayer={setCurrentPlayer}
+                score={score}
             />
             <div className="Board">
                 <Column clueArray={columnClueArrays[0]} setCurrentClue={setCurrentClue} currentClue={currentClue} />
