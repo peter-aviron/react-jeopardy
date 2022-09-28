@@ -1,3 +1,4 @@
+import { Card } from "@mui/material";
 import React from "react";
 import { Clue } from "../App";
 
@@ -23,17 +24,17 @@ function Question(props: Props) {
         if(!props.currentClue && hasBeenClicked === false){
             setTextValue(props.clue?.question)
             props.setCurrentClue(props.clue)
+            setHasBeenClicked(true)
         }
-        setHasBeenClicked(true)
     }
 
     return (
-        <div
+        <Card
             className="question"
             onClick={handleClick}
         >
             {textValue}
-        </div>
+        </Card>
     );
 }
 

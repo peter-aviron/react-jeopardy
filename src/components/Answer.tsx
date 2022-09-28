@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Clue } from "../App";
+import { Grid, TextField, Button } from "@mui/material";
 
 interface Props {
     currentClue?: Clue;
@@ -37,13 +38,17 @@ function Answer(props: Props) {
     }
 
     return (
-        <div>
-            <input value={userInput} onChange={changeHandler} />
-            <button onClick={submitHandler}>Submit</button>
-            <div>
+        <Grid container justifyContent="center" alignItems='center' spacing={1} className="inputContainer">
+            <Grid item>
+                <TextField label="Answer Here" variant="outlined" value={userInput} onChange={changeHandler} />
+            </Grid>
+            <Grid item>
+                <Button onClick={submitHandler}>Submit</Button>
+            </Grid>
+            <Grid item>
                 {feedback}
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     )
 }
 
