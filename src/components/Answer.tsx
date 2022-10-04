@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Clue } from "../App";
+import { Clue } from "./JeopardyApp";
 import { Grid, TextField, Button } from "@mui/material";
 
 interface Props {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Clue } from "../App";
+import { Clue } from "./JeopardyApp";
 import Question from "./Question";
 
 interface Props {
@@ -18,7 +18,7 @@ function toTitleCase(str: string) {
   }
 
 function Column(props: Props) {
-    const headerCatTitle = props.clueArray ? props.clueArray[0]['category']['title'] : ""
+    const headerCatTitle = (props.clueArray && props.clueArray.length !== 0) ? props.clueArray[0]['category']['title'] : ""
     return (
         <div>
             <div className="column-header">{toTitleCase(headerCatTitle)}</div>
