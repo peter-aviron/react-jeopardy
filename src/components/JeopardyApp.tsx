@@ -61,12 +61,25 @@ function JeopardyApp() {
         setWinDiv(undefined)
     }
 
+    /* <div>Current Player: {currentPlayer} </div>
+    <div>Player 1 Score: ${score[1]}</div>
+    <div>Player 2 Score: ${score[2]}</div> */
     return (
         <div className="App">
             <div className="scoreboard">
-                <div>Current Player: {currentPlayer} </div>
-                <div>Player 1 Score: {score[1]}</div>
-                <div>Player 2 Score: {score[2]}</div>
+                <div className="scoreboardPodium">
+                    <div className="podiumInterior">
+                        ${score[1]}
+                    </div>
+                </div>
+                <div className="scoreboardPodium">
+                    <div className="podiumInterior">
+                        ${score[2]}
+                    </div>
+                </div>
+                <div className="scoreboardPodium">
+
+                </div>
             </div>
             <Modal open={winDiv ? true : false} >
                 <Box className='WinModal'>

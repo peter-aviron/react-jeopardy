@@ -32,7 +32,7 @@ function Question(props: Props) {
         <div className="flip-card">
             <div className="flip-card-inner">
                 <div className="flip-card-front" onClick={handleClick}>
-                    {props.clue.value}
+                    ${props.clue.value}
                 </div>
                 <div className="flip-card-back" style={{backgroundColor: "lightgray"}}>
                     {textValue}
