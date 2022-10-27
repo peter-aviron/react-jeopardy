@@ -1,3 +1,14 @@
+# Instructions for photo app
+
+Requirements:
+1. User is able to load photos from flickr api.
+2. User can input a location and get photos from that locations
+3. User can use their location for photo search
+4. User can also search for photos based on a search term
+
+[Flickr API docs](https://www.flickr.com/services/api/)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
