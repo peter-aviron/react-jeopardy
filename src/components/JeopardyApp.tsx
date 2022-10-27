@@ -11,7 +11,7 @@ export interface Clue {
 }
 
 function JeopardyApp() {
-    const initialScore = { 1: 0, 2: 0 };
+    const initialScore = { 1: 0, 2: 0, 3:0};
     const categoryIdArray: number[] = [105, 22, 104];
     const [columnClueArrays, setColumnClueArrays] = React.useState<any[]>([]);
     const [currentClue, setCurrentClue] = React.useState<Clue>();
@@ -47,8 +47,16 @@ function JeopardyApp() {
     }, []);
 
     React.useEffect(() => {
-        if (score[1] >= 400 || score[2] >= 400) {
-            setWinDiv("Player " + (currentPlayer === 1 ? 2 : 1) + " wins!");
+        if (score[1] >= 400 || score[2] >= 400 || score[3] >= 400) {
+            let winner
+            if (currentPlayer === 1) {
+                winner = 3
+            } else if (currentPlayer === 2) {
+                winner = 1
+            } else {
+                winner = 2
+            }
+            setWinDiv("Player " + winner + " wins!");
         }
     }, [score]);
 
@@ -59,26 +67,27 @@ function JeopardyApp() {
             getCluesByCategory(value, 5);
         })
         setWinDiv(undefined)
+        setCurrentPlayer(1)
     }
 
-    /* <div>Current Player: {currentPlayer} </div>
-    <div>Player 1 Score: ${score[1]}</div>
-    <div>Player 2 Score: ${score[2]}</div> */
+   
     return (
         <div className="App">
             <div className="scoreboard">
-                <div className="scoreboardPodium">
+                <div className={"scoreboardPodium" + (currentPlayer === 1 ? " currentPlayer" : '')}>
                     <div className="podiumInterior">
                         ${score[1]}
                     </div>
                 </div>
-                <div className="scoreboardPodium">
+                <div className={"scoreboardPodium" + (currentPlayer === 2 ? " currentPlayer" : '')}>
                     <div className="podiumInterior">
                         ${score[2]}
                     </div>
                 </div>
-                <div className="scoreboardPodium">
-
+                <div className={"scoreboardPodium" + (currentPlayer === 3 ? " currentPlayer" : '')}>
+                    <div className="podiumInterior">
+                        ${score[3]}
+                    </div>
                 </div>
             </div>
             <Modal open={winDiv ? true : false} >
@@ -97,7 +106,6 @@ function JeopardyApp() {
                 setCurrentClue={setCurrentClue}
                 currentPlayer={currentPlayer}
                 setCurrentPlayer={setCurrentPlayer}
-                score={score}
             />
             <Grid container xs={12} justifyContent='center'>
                 <Paper className="Board" elevation={8}>

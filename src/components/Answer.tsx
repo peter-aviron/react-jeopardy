@@ -8,7 +8,6 @@ interface Props {
     setCurrentClue: any;
     currentPlayer: number;
     setCurrentPlayer: any;
-    score: any;
 }
 
 function Answer(props: Props) {
@@ -33,7 +32,15 @@ function Answer(props: Props) {
         }
         props.setCurrentClue(undefined)
 
-        props.setCurrentPlayer(props.currentPlayer === 1 ? 2 : 1)
+        let currentPlayer
+        if (props.currentPlayer === 1) {
+            currentPlayer = 2
+        } else if (props.currentPlayer === 2) {
+            currentPlayer = 3
+        } else {
+            currentPlayer = 1
+        }
+        props.setCurrentPlayer(currentPlayer)
         setUserInput('')
     }
 

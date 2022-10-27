@@ -133,11 +133,13 @@
 
 .scoreboard {
     background-image: url("podiums.png");
+    background-size: contain;
     height: 300px;
     background-repeat: no-repeat;
     background-position: center;
-    width: 920px;
-    display: flex
+    width: 720px;
+    display: flex;
+    margin-top: 10px
 }
 
 .scoreboardPodium {
@@ -153,5 +155,5 @@
 }
 
 .currentPlayer {
-    border: 5px solid red
+    outline: 5px solid red
 }

@@ -8,17 +8,8 @@ function App() {
         <Routes>
             <Route path="/" element={<JeopardyApp />} />
             <Route path="about" element={<>Testing</>} />
-            <Route path="about" element={<>Testing</>} />
-
-            <Route path="about" element={<>Testing</>} />
-
-            <Route path="about" element={<>Testing</>} />
-
-            <Route path="about" element={<>Testing</>} />
-
         </Routes>
     )
 }
 
 export default App;
-
