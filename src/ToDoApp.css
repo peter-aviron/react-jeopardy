@@ -1,0 +1,16 @@
+.App {
+    text-align: center;
+}
+
+.IndieFlower {
+    font-family: 'Arvo', serif;
+    font-family: 'Indie Flower';
+}
+  
+.Notebook {
+    background-image: url("notebook.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 700px;
+}

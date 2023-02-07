@@ -107,7 +107,7 @@ function JeopardyApp() {
                 currentPlayer={currentPlayer}
                 setCurrentPlayer={setCurrentPlayer}
             />
-            <Grid container xs={12} justifyContent='center'>
+            <Grid container justifyContent='center'>
                 <Paper className="Board" elevation={8}>
                     <Column
                         clueArray={columnClueArrays[0]}
