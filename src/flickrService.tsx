@@ -6,7 +6,7 @@ async function flickrService(state:any) {
     const queryString = `api_key=${apiKey}&format=json&nojsoncallback=1`
     + `&method=flickr.photos.search&safe_search=1&per_page=${state.photoCount}`
     + `&text=${state.searchTerm}`
-    + `&geo_context="indoors"`
+    //+ `&geo_context="indoors"`
     //+ `&lat=${state.lat}&lon=${state.lon}
 
     const URL = `${proxyServer + domain + path}?${queryString}`
