@@ -7,20 +7,30 @@ function PhotosApp() {
     const [photoArray, setPhotoArray] = React.useState<any[]>([])
     const [userInput, setUserInput] = React.useState<string>("Burger")
     const [photoCount, setPhotoCount] = React.useState<number>(5)
-    const [open, setOpen] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
     const [errorOpen, setErrorOpen] = React.useState(false)
     const [errorMessage, setErrorMessage] = React.useState<string>("")
+    const [lat, setLat] = React.useState<number>(41.6578)
+    const [lon, setLon] = React.useState<number>(-91.5346)
+
+    const requestObj = {photoCount: photoCount, searchTerm: userInput, lat: lat, lon: lon}
+
 
     React.useEffect(() => {
-        setOpen(true)
-        flickrService({ photoCount: photoCount, searchTerm: userInput }).then((res) => {
+        setLoading(true)
+        flickrService(requestObj).then((res) => {
+            setLoading(false)
+            if (!res.stat) {
+                setErrorMessage('Failed to reach the server')
+                setErrorOpen(true)
+                return
+            }
             if (res.stat !== 'ok') {
                 setErrorMessage(res.message)
                 setErrorOpen(true)
             } else {
                 setPhotoArray(res.photos.photo)
             }
-            setOpen(false)
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -34,19 +44,26 @@ function PhotosApp() {
     }
 
     function submitHandler() {
-        flickrService({ photoCount: photoCount, searchTerm: userInput }).then((res) => {
+        flickrService(requestObj).then((res) => {
             setPhotoArray(res.photos.photo)
         })
     }
 
     function loadingChangeHandler() {
-        setOpen(false)
+        setLoading(false)
     }
 
     function handleErrorClose() {
         setErrorOpen(false)
     }
 
+    function latChangeHandler(e: any) {
+        setLat(e.target.value)
+    }
+
+    function lonChangeHandler(e: any) {
+        setLon(e.target.value)
+    }
     const action = (
         <React.Fragment>
             <IconButton
@@ -73,7 +90,7 @@ function PhotosApp() {
 
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={open}
+                open={loading}
                 onChange={loadingChangeHandler}
             >
                 <CircularProgress color="inherit" />
@@ -81,6 +98,8 @@ function PhotosApp() {
 
 
             <div className="centerPhotoApp">
+                <TextField label="Latitude" variant="outlined" value={lat} onChange={latChangeHandler} />
+                <TextField label="Longitude" variant="outlined" value={lon} onChange={lonChangeHandler} />
                 <TextField label="Search" variant="outlined" value={userInput} onChange={inputChangeHandler} />
                 <TextField label="Photo Count" variant="outlined" value={photoCount} onChange={photoCountChangeHandler} type="number" />
                 <Button onClick={submitHandler}>Submit</Button>
