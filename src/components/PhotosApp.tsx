@@ -1,6 +1,6 @@
 import React from "react";
 import flickrService from "../flickrService";
-import { Alert, Button, IconButton, ImageList, ImageListItem, ImageListItemBar, Snackbar, TextField } from "@mui/material";
+import { Alert, Backdrop, Button, CircularProgress, IconButton, ImageList, ImageListItem, ImageListItemBar, Snackbar, TextField } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
 function PhotosApp() {
@@ -8,16 +8,19 @@ function PhotosApp() {
     const [userInput, setUserInput] = React.useState<string>("Burger")
     const [photoCount, setPhotoCount] = React.useState<number>(5)
     const [open, setOpen] = React.useState(false)
+    const [errorOpen, setErrorOpen] = React.useState(false)
     const [errorMessage, setErrorMessage] = React.useState<string>("")
 
     React.useEffect(() => {
+        setOpen(true)
         flickrService({ photoCount: photoCount, searchTerm: userInput }).then((res) => {
             if (res.stat !== 'ok') {
                 setErrorMessage(res.message)
-                setOpen(true)
+                setErrorOpen(true)
             } else {
                 setPhotoArray(res.photos.photo)
             }
+            setOpen(false)
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -36,8 +39,12 @@ function PhotosApp() {
         })
     }
 
-    function handleClose() {
+    function loadingChangeHandler() {
         setOpen(false)
+    }
+
+    function handleErrorClose() {
+        setErrorOpen(false)
     }
 
     const action = (
@@ -46,7 +53,7 @@ function PhotosApp() {
                 size="small"
                 aria-label="close"
                 color="inherit"
-                onClick={handleClose}
+                onClick={handleErrorClose}
             >
                 <CloseIcon fontSize="small" />
             </IconButton>
@@ -56,13 +63,22 @@ function PhotosApp() {
     return (
         <>
             <Snackbar
-                open={open}
+                open={errorOpen}
                 autoHideDuration={6000}
                 action={action}
-                onClose={handleClose}
+                onClose={handleErrorClose}
             >
-                <Alert  onClose={handleClose} severity="error">{"Failed to get photos: " + errorMessage}</Alert>
+                <Alert onClose={handleErrorClose} severity="error">{"Failed to get photos: " + errorMessage}</Alert>
             </Snackbar>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+                onChange={loadingChangeHandler}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+
 
             <div className="centerPhotoApp">
                 <TextField label="Search" variant="outlined" value={userInput} onChange={inputChangeHandler} />
