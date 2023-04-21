@@ -3,34 +3,6 @@ import flickrService from "../flickrService";
 import { Alert, Backdrop, Button, CircularProgress, IconButton, ImageList, ImageListItem, ImageListItemBar, Snackbar, TextField } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
-// farm
-// : 
-// 66
-// id
-// : 
-// "52339858772"
-// isfamily
-// : 
-// 0
-// isfriend
-// : 
-// 0
-// ispublic
-// : 
-// 1
-// owner
-// : 
-// "92354342@N00"
-// secret
-// : 
-// "ac2621e58f"
-// server
-// : 
-// "65535"
-// title
-// : 
-// "Surviving half of my Beaconsfield burger from Shorts Eastside"
-
 interface Photo {
     farm: number, 
     id: string, 
@@ -83,7 +55,7 @@ function PhotosApp() {
             setPhotoArray(res.photos.photo)
         })
     }
-    
+
     const action = (
         <React.Fragment>
             <IconButton
